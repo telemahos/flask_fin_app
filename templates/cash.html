@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    CASH
+{% endblock %}
+
+{% block main %}
+    <form action="/cash" method="post" action="form-handler" onsubmit="return validateForm(this);">
+        <div class="form-group">
+            <label for="cash">Available Cash in $: </label>
+            <input autocomplete="off" autofocus class="form-control" name="cash" type="text" min="0" value='{{ cash }}'>
+        </div>
+        <button class="btn btn-primary" type="submit">Add Cash</button>
+    </form>
+
+    <script>
+        function validateForm(form) {
+            if (form.cash.value == "") {
+                alert("Cash Value is missing!");
+                form.cash.focus();
+                return false;
+            }
+            if (form.cash.value < 0) {
+                alert("Cash Value must be positive!");
+                form.cash.focus();
+                return false;
+            }
+            return true;
+        }
+
+    </script>
+
+{% endblock %}

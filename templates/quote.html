@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    QUOTE
+{% endblock %}
+
+{% block main %}
+    <form action="/quote" method="post" action="form-handler" onsubmit="return validateForm(this);">
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="symbol" placeholder="Symbol" type="text">
+        </div>
+        <button class="btn btn-primary" type="submit">Quote</button>
+    </form>
+
+    <script>
+        function validateForm(form) {
+            if (form.symbol.value == "") {
+                alert("Quote is not available");
+                form.symbol.focus();
+                return false;
+            }
+            return true;
+        }
+
+    </script>
+
+{% endblock %}

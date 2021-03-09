@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    SELL
+{% endblock %}
+
+{% block main %}
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Shares</th>
+                <th>Price</th>
+                <th>Transacted</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in rows %}
+            <tr>
+                <td>{{ row['symbol'] }}</td>
+                {% if row['buy_sell'] == "sell": %}
+                    <td>-{{ row['shares'] }} </td>
+                {% else: %}
+                    <td>{{ row['shares'] }} </td>
+                {% endif %}
+                <td>${{ row['price'] }}</td>
+                <td>{{ row['date'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

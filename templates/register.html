@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    REGISTER
+{% endblock %}
+
+{% block main %}
+    <form action="/register" method="post" action="form-handler" onsubmit="return validateForm(this);">
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="password" placeholder="Password" type="password">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="confirmation" placeholder="Password" type="password">
+        </div>
+        <button class="btn btn-primary" type="submit">Log In</button>
+    </form>
+
+    <script>
+        function validateForm(form) {
+            if (form.username.value == "") {
+                alert("Username is not available");
+                form.username.focus();
+                return false;
+            }
+            if (form.password.value == "") {
+                alert("Password field is empty");
+                form.password.focus();
+                return false;
+            }
+            if (form.password.value != form.confirmation.value) {
+                alert("Password not match");
+                form.password.focus();
+                return false;
+            }
+            return true;
+        }
+
+    </script>
+{% endblock %}

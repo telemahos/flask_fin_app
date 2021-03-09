@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    PORTFOLIO
+{% endblock %}
+
+{% block main %}
+  <h1>User ID: {{ user_id }}</h1>
+  <h3>Username: {{ username }} :: {{ the_date }}</h3>
+    
+  <br>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <a class="btn btn-success btn-lg btn-block" href="/income" role="button">Έσοδα</a>
+      </div>
+      <div class="col-sm">
+        <a class="btn btn-dark btn-lg btn-block" href="/outcome" role="button">Έξοδα</a>
+      </div>
+      <div class="col-sm">
+        <a class="btn btn-info btn-lg btn-block" href="/staff" role="button">Προσωπικό</a>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
