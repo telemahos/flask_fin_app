@@ -2,7 +2,7 @@ import os
 
 from cs50 import SQL
 # import sqlite3
-from flask import Flask, flash, jsonify, redirect, render_template, request, session
+from flask import Flask, flash, jsonify, redirect, render_template, request, session, url_for
 from datetime import datetime, date
 from flask_session import Session
 from tempfile import mkdtemp
@@ -10,10 +10,14 @@ from werkzeug.exceptions import default_exceptions, HTTPException, InternalServe
 from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import apology, login_required, usd
 # lookup,
+from forms import IncomeForm, OutcomeForm
+
 
 
 # Configure application
 app = Flask(__name__)
+app.config.from_pyfile('config.py')
+
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
@@ -62,15 +66,14 @@ def index():
     
 
 
-@app.route("/income")
+@app.route("/income", methods=["GET","POST"])
 @login_required
 def income():
-    # Check if this stock is in users Portfolio
+    # Check if 
     # user_id = session["user_id"]
-    # today = date.today()
-    today = "2021-03-08"
+    today = date.today()
+    # today = "2021-03-08"
     # print(today)
-    # rows = db.execute("SELECT date FROM income WHERE date = ?", today)
     numRows = db.execute('SELECT COUNT(*) FROM (SELECT * FROM income)')
     rows = db.execute("SELECT * FROM income WHERE date = :today", today=today)
     print(numRows)
@@ -82,7 +85,12 @@ def income():
             print("today:" + heute)
             print('Income Found')
     
-    return render_template("income.html")
+    """ Income Form """
+    form = IncomeForm()
+    if form.validate_on_submit():
+        return redirect(url_for("index"))
+    
+    return render_template("income.html", form=form)
 
 @app.route("/outcome")
 @login_required

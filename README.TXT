@@ -8,4 +8,5 @@ source venv/bin/activate
 
 export FLASK_APP=application.py
 export FLASK_ENV=development
+export SECRET_KEY='GDtfDCFYjD'
 flask run

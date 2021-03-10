@@ -5,7 +5,26 @@
 {% endblock %}
 
 {% block main %}
+  <main class="form-signin">
     <form action="/login" method="post">
+      <img class="mb-4" src="/static/bootstrap-logo.svg" alt="" width="72" height="57">
+      <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+      <label for="username" class="visually-hidden">username</label>
+      <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
+      <label for="inputPassword" class="visually-hidden">Password</label>
+      <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+      <div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+      </div>
+      <button class="w-100 btn btn-lg btn-primary" type="submit">Log in</button>
+      <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+    </form>
+  <!-- </main> -->
+    
+    
+    <!-- <form action="/login" method="post">
         <div class="form-group">
             <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text">
         </div>
@@ -13,5 +32,5 @@
             <input class="form-control" name="password" placeholder="Password" type="password">
         </div>
         <button class="btn btn-primary" type="submit">Log In</button>
-    </form>
+    </form> -->
 {% endblock %}
