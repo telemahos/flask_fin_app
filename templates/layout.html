@@ -84,11 +84,14 @@
                   <li class="nav-item">
                     <a class="nav-link" href="/staff">Προσωπικό</a>
                   </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/">Αποθήκη</a>
+                  </li>
                   <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Settings</a>
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Έσοδα</a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown01">
-                      <li><a class="dropdown-item" href="#">Action</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
+                      <li><a class="dropdown-item" href="/post-income">Νέα Έσοδα</a></li>
+                      <li><a class="dropdown-item" href="#">Επεξεργασία Εσόδων</a></li>
                       <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
                   </li>
@@ -149,7 +152,7 @@
 
         <script>
           const myDatePicker = MCDatepicker.create({ 
-                  el: '#outcomeDate',
+                  el: '#date',
                   bodyType: 'inline',
                   dateFormat: 'MM-DD-YYYY'
               })

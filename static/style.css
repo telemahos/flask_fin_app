@@ -15,9 +15,11 @@ footer {
 .my-form {
    /* background-color: blueviolet; */
 }
-
+.top-padding {
+  padding-top: 40px;
+}
 .form-control {
-   color: rgb(173, 168, 161);
+   color: rgb(76 119 144);
    background-color: rgb(44, 44, 43);
    border-color: rgb(70, 71, 71);
 }
@@ -135,7 +137,7 @@ html,
 
 body {
     align-items: center;
-    padding-top: 40px;
+    padding-top: 20px;
     padding-bottom: 40px;
     /* background-color: #f5f5f5; */
     margin-bottom: -40px;

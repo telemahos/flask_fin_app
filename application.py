@@ -13,7 +13,6 @@ from helpers import apology, login_required, usd
 from forms import IncomeForm, OutcomeForm
 
 
-
 # Configure application
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
@@ -21,6 +20,7 @@ app.config.from_pyfile('config.py')
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
+
 
 # Ensure responses aren't cached
 @app.after_request
@@ -63,33 +63,96 @@ def index():
     
     
     return render_template("index.html", user_id=user_id, username=username, the_date=the_date)
-    
 
-
-@app.route("/income", methods=["GET","POST"])
+# POST INCOME
+@app.route("/post-income", methods=["GET","POST"])
 @login_required
-def income():
-    # Check if 
-    # user_id = session["user_id"]
+def post_income():
     today = date.today()
-    # today = "2021-03-08"
-    # print(today)
-    numRows = db.execute('SELECT COUNT(*) FROM (SELECT * FROM income)')
+    # today = "2021-03-11"
+    the_date = today.strftime("%B %d, %Y")
+    form = IncomeForm()    
+    numRows = db.execute('SELECT COUNT(*) FROM (SELECT * FROM income WHERE date = :today)', today=today)
     rows = db.execute("SELECT * FROM income WHERE date = :today", today=today)
     print(numRows)
-    if not rows :
-        print("not ROW")
+    # There is no Rows with this date
+    if request.method == "GET":
+        if not rows:
+            # print("6666")
+            print("not ROW")
+            return render_template("post-income.html", form=form, the_date=the_date)
+    # Else theere is a POST Method to Collect the new Income form data an inert it to database
     else:
-        for row in rows:
-            heute = row["date"]
-            print("today:" + heute)
-            print('Income Found')
+        print("0000")
+        z_count = request.form.get("z_count")
+        early_income = request.form.get("early_income")
+        late_income = request.form.get("late_income")
+        notes = request.form.get("notes")
+        if z_count or early_income:
+            print("1111")
+            # Insert If there is no income yet at this day
+            db.execute("INSERT INTO income (date, z_count, early_income, late_income, notes) VALUES (:date, :z_count, :early_income, :late_income, :notes)", date=today, z_count=z_count, early_income=early_income, late_income=late_income, notes=notes)
+            return redirect("/")
     
     """ Income Form """
-    form = IncomeForm()
     if form.validate_on_submit():
         return redirect(url_for("index"))
+           
+    return render_template("post-income.html", form=form)
     
+@app.route("/edit-income", methods=["GET","POST"])
+@login_required
+def edit_income():
+    today = date.today()
+    # today = "2021-03-11"
+    the_date = today.strftime("%B %d, %Y")
+    form = IncomeForm()    
+    numRows = db.execute('SELECT COUNT(*) FROM (SELECT * FROM income WHERE date = :today)', today=today)
+    rows = db.execute("SELECT * FROM income WHERE date = :today", today=today)
+    print(numRows)
+    # There is no Rows with this date
+    if not rows:
+        print("6666")
+        print("not ROW")
+        return render_template("income.html", form=form, the_date=the_date)
+    # If there is a row, colect the row data and send them into the form
+    else:
+        print("7777")
+        for row in rows:
+            row_id = row["id"]
+            today = row["date"]
+            z_count = row["z_count"]
+            early_income = row["early_income"]
+            late_income = row["late_income"]
+            notes = row["notes"]
+    # Send all requested data to the income form
+    if request.method == "GET":
+        # print("8888")
+        return render_template("income.html", today=today, z_count=z_count, early_income=early_income, late_income=late_income, notes=notes, form=form)
+    # Else theere is a POST Method to Collect the new Income form data an inert it to database
+    else:
+        # print("0000")
+        z_count = request.form.get("z_count")
+        early_income = request.form.get("early_income")
+        late_income = request.form.get("late_income")
+        notes = request.form.get("notes")
+        if not rows:
+            # print("1111")
+            # Insert If there is no income yet at this day
+            db.execute("INSERT INTO income (date, z_count, early_income, late_income, notes) VALUES (:date, :z_count, :early_income, :late_income, :notes)", date=today, z_count=z_count, early_income=early_income, late_income=late_income, notes=notes)
+            return redirect("/")
+        else:
+            # for row in rows:
+            # print("2222")
+            # Else update the day entry with new data
+            sql_update_query = """UPDATE income SET z_count = ? WHERE id = ? """
+            db.execute(sql_update_query, z_count, row_id)
+            return redirect("/")
+    
+    """ Income Form """
+    if form.validate_on_submit():
+        return redirect(url_for("index"))
+
     return render_template("income.html", form=form)
 
 @app.route("/outcome")
@@ -97,7 +160,7 @@ def income():
 def outcome():
     # Check if this stock is in users Portfolio
     user_id = session["user_id"]
-    
+
     return render_template("outcome.html")
 
 @app.route("/staff")

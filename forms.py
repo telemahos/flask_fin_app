@@ -1,15 +1,15 @@
-"""Form object declaration."""
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextField, SubmitField, TextAreaField, DateField, BooleanField
 from wtforms.validators import DataRequired, Length, ValidationError
 
 class IncomeForm(FlaskForm):
    """ Income Form """
-   z_count = StringField("Z της Ημέρας", [DataRequired()])
-   early_income = StringField("Πρωϊνός Τζίρος", [DataRequired()])
+   date = StringField("Ημερομηνία", [DataRequired()])
+   z_count = StringField("Z")
+   early_income = StringField("Πρωϊνός Τζίρος")
    late_income = StringField("Βραδυνός Τζίρος")
    notes = TextAreaField("Παρατηρήσεις", [Length(min=4, message=("Start a Note!"))] )
-   submit = SubmitField("Αποστολή")
+   submit = SubmitField("Καταχώρηση")
    
 class OutcomeForm(FlaskForm):
    """ Outcome Form """

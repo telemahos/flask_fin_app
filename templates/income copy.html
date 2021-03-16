@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block title %}
+   ΕΣΟΔΑ
+{% endblock %}
+
+{% block main %}
+   
+
+   <main>
+      <div class="py-5 text-center">
+         <img class="d-block mx-auto mb-4" src="/static/bootstrap-logo.svg" alt="" width="72" height="57">
+         <h2>Φόρμα Εξόδων</h2>
+         <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
+      </div>
+         
+      <div class="container">
+         <div class="row align-items-center">
+            <div class="col-sm-7 col-lg-8">
+               <h2 class="">Έσοδα Ημέρας</h2>
+               <hr class="mx-2 my-4">
+               
+               <form class="needs-validation" novalidate method="POST" action="{{ url_for('income') }}">
+                  <div class="row g-4">
+                     <!-- Z Count -->
+                     <div class="col-sm-4">
+                        <label for="z_count" class="form-label">{{ form.z_count.label }}</label>
+                        {{ form.z_count(class="form-control",placeholder="Z της Ημέρας", id="z_count") }}
+                        <div class="invalid-feedback"> -->
+                           Valid first name is required.
+                        </div>
+                     </div>
+
+                     <!-- Early Income -->
+                     <div class="col-sm-4">
+                        <label for="early_income" class="form-label">{{ form.early_income.label }}</label>
+                        {{ form.early_income(class="form-control",placeholder="Πρωϊνός Τζίρος", id="early_income") }}
+                        <div class="invalid-feedback"> -->
+                           Valid first name is required.
+                        </div>
+                     </div>
+
+                     <!-- Late Income -->
+                     <div class="col-sm-4">
+                        <label for="late_income" class="form-label">{{ form.late_income.label }}</label>
+                        {{ form.late_income(class="form-control",placeholder="Βραδυνός Τζίρος", id="late_income") }}
+                        <div class="invalid-feedback"> -->
+                           Valid first name is required.
+                        </div>
+                     </div>
+
+                     <!-- Notes -->
+                     <div class="col-sm-12">
+                        <label for="notes" class="form-label">{{ form.notes.label }}</label>
+                        {{ form.notes(class="form-control",placeholder="Βραδυνός Τζίρος", id="notes") }}
+                        <div class="invalid-feedback"> -->
+                           Valid first name is required.
+                        </div>
+                     </div>
+                     
+                     <!-- Submit -->                     
+                     <p>
+                        <hr class="mx-2 my-4">
+                        {{ form.submit(class="w-100 btn btn-primary btn-lg",id="submit" ) }}
+                     </p>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </main>
+{% endblock %}
