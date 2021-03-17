@@ -49,6 +49,7 @@ db = SQL("sqlite:///test.db")
 def index():
     # Get user account Info
     user_id = session["user_id"]
+    greeting = "HALLO from Flask"
     today = date.today()
     the_date = today.strftime("%B %d, %Y")
     numRows = db.execute('SELECT COUNT(*) FROM (SELECT * FROM user)')
@@ -62,7 +63,7 @@ def index():
             username = row["username"]
     
     
-    return render_template("index.html", user_id=user_id, username=username, the_date=the_date)
+    return render_template("index.html", user_id=user_id, username=username, the_date=the_date, greeting=greeting)
 
 # POST INCOME
 @app.route("/post-income", methods=["GET","POST"])
